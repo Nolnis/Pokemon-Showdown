@@ -3560,7 +3560,7 @@ let BattleMovedex = {
 				this.add('-singlemove', pokemon, 'Destiny Bond');
 			},
 			onFaint(target, source, effect) {
-				if (!source || !effect || target.side === source.side) return;
+				if (!source || !effect || target.side === source.side || source.volatiles['dynamax']) return;
 				if (effect.effectType === 'Move' && !effect.isFutureMove) {
 					this.add('-activate', target, 'move: Destiny Bond');
 					source.faint();
@@ -11117,7 +11117,11 @@ let BattleMovedex = {
 	"maxflare": {
 		num: 757,
 		accuracy: true,
+<<<<<<< HEAD
 		basePower: 10,
+=======
+		basePower: 100,
+>>>>>>> 3136f4d785328366efb15a7f6ca813c4dc88b50c
 		category: "Physical",
 		shortDesc: "Sets Sun. BP scales with base move's BP.",
 		id: "maxflare",
