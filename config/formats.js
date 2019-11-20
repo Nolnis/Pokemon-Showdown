@@ -41,6 +41,33 @@ let Formats = [
 		minSourceGen: 8,
 	},
 	{
+		name: "[Gen 8] National Dex (beta)",
+
+		mod: 'gen8',
+		ruleset: ['Obtainable', 'Standard', 'Team Preview', '+Past', '+Unreleased'],
+		banlist: ['Uber', 'Shadow Tag', 'Baton Pass',
+			"Gengar-Mega", "Kangaskhan-Mega", "Mewtwo", "Mewtwo-Mega-X", "Mewtwo-Mega-Y", "Lugia", "Ho-Oh", "Blaziken", "Blaziken-Mega", "Salamence-Mega", "Metagross-Mega", "Kyogre", "Groudon", "Rayquaza", "Deoxys", "Deoxys-Attack", "Deoxys-Defense", "Deoxys-Speed", "Lucario-Mega", "Dialga", "Palkia", "Giratina", "Giratina-Origin", "Darkrai", "Shaymin-Sky", "Arceus", "Reshiram", "Zekrom", "Landorus", "Kyurem-White", "Genesect", "Xerneas", "Yveltal", "Zygarde", "Zygarde-Complete", "Solgaleo", "Lunala", "Pheromosa", "Necrozma-Dusk-Mane", "Necrozma-Dawn-Wings", "Necrozma-Ultra", "Marshadow", "Naganadel",
+		],
+		onBegin() {
+			// if you have a mega or z, you can't dynamax
+			for (const side of this.sides) {
+				let canMegaOrZ = false;
+				for (const pokemon of side.pokemon) {
+					const item = this.dex.getItem(pokemon.item);
+					if (item.megaStone || item.zMove) {
+						canMegaOrZ = true;
+						break;
+					}
+				}
+				if (canMegaOrZ) {
+					for (const pokemon of side.pokemon) {
+						pokemon.canDynamax = false;
+					}
+				}
+			}
+		},
+	},
+	{
 		name: "[Gen 8] Ubers",
 		threads: [
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3656149/">Ubers Metagame Discussion</a>`,
@@ -76,7 +103,7 @@ let Formats = [
 		mod: 'gen8',
 		maxLevel: 5,
 		ruleset: ['Obtainable', 'Little Cup', 'Standard', 'Team Preview'],
-		banlist: ['Sneasel', 'Swirlix', 'Baton Pass'],
+		banlist: ['Corsola-Galar', 'Sneasel', 'Swirlix', 'Baton Pass'],
 		minSourceGen: 8,
 	},
 	{
@@ -255,7 +282,7 @@ let Formats = [
 			battle: 2,
 		},
 		ruleset: ['Obtainable', 'Standard Doubles', 'Accuracy Moves Clause', 'Team Preview', 'Sleep Clause Mod'],
-		banlist: ['DUber', 'Swagger'],
+		banlist: ['DUber', 'Focus Sash', 'Perish Song', 'Swagger'],
 		minSourceGen: 8,
 	},
 	{
@@ -1256,7 +1283,6 @@ let Formats = [
 		],
 
 		mod: 'gen7',
-		searchShow: false,
 		ruleset: ['Obtainable', 'Standard', 'Team Preview', 'Mega Rayquaza Clause'],
 		banlist: ['Baton Pass'],
 	},
@@ -1319,7 +1345,6 @@ let Formats = [
 		],
 
 		mod: 'gen7',
-		searchShow: false,
 		maxLevel: 5,
 		ruleset: ['Obtainable', 'Little Cup', 'Standard', 'Swagger Clause', 'Team Preview'],
 		banlist: [
@@ -1338,7 +1363,6 @@ let Formats = [
 		],
 
 		mod: 'gen7',
-		searchShow: false,
 		ruleset: ['Obtainable', 'Same Type Clause', 'Standard', 'Swagger Clause', 'Team Preview'],
 		banlist: [
 			'Aegislash', 'Arceus', 'Blaziken', 'Darkrai', 'Deoxys-Base', 'Deoxys-Attack', 'Dialga', 'Genesect', 'Gengar-Mega', 'Giratina', 'Groudon',
@@ -1357,7 +1381,6 @@ let Formats = [
 		],
 
 		mod: 'gen7',
-		searchShow: false,
 		ruleset: ['Obtainable', 'Team Preview', 'HP Percentage Mod', 'Cancel Mod', 'Endless Battle Clause'],
 	},
 	{
@@ -1374,7 +1397,6 @@ let Formats = [
 			validate: [1, 3],
 			battle: 1,
 		},
-		searchShow: false,
 		ruleset: ['Obtainable', 'Species Clause', 'Nickname Clause', 'OHKO Clause', 'Swagger Clause', 'Evasion Moves Clause', 'Accuracy Moves Clause', 'Team Preview', 'HP Percentage Mod', 'Cancel Mod', 'Endless Battle Clause'],
 		banlist: [
 			'Arceus', 'Darkrai', 'Deoxys-Base', 'Deoxys-Attack', 'Deoxys-Defense', 'Dialga', 'Giratina',
@@ -1468,7 +1490,6 @@ let Formats = [
 
 		mod: 'gen7',
 		gameType: 'doubles',
-		searchShow: false,
 		ruleset: ['Obtainable', 'Standard Doubles', 'Swagger Clause', 'Team Preview'],
 		banlist: ['DUber', 'Power Construct', 'Eevium Z', 'Dark Void', 'Gravity ++ Grass Whistle', 'Gravity ++ Hypnosis', 'Gravity ++ Lovely Kiss', 'Gravity ++ Sing', 'Gravity ++ Sleep Powder'],
 	},
